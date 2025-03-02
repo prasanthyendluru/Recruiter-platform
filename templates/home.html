@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to the Recruitment Platform</h1>
+        <p>Find your dream job or post a job listing today!</p>
+        <a href="{% url 'job_list' %}" class="browse-jobs-btn">Browse Jobs</a>
+    </div>
+    <div class="hero-image">
+        <img src="{% static 'images/hero-image.png' %}" alt="Recruitment Platform">
+    </div>
+</section>
+{% endblock %}

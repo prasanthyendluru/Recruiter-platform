@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Login</h2>
+
+        <!-- Display Success Message as Popup -->
+        {% if messages %}
+            <div id="popup" class="popup">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="id_username">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-field">
+                <label for="id_password">Password:</label>
+                {{ form.password }}
+            </div>
+            <div class="form-field">
+                <label for="id_user_type">Login As:</label>
+                {{ form.user_type }}
+            </div>
+            <button type="submit" class="auth-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Show popup if there are messages
+    const popup = document.getElementById('popup');
+    if (popup) {
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none'; // Hide popup after 3 seconds
+        }, 3000);
+    }
+</script>
+{% endblock %}

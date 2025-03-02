@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="job-list-container">
+    <h2>Available Jobs</h2>
+
+    {% if jobs %}
+        <ul class="job-list">
+            {% for job in jobs %}
+                <li class="job-item">
+                    <a href="{% url 'job_detail' job.pk %}" class="job-title">{{ job.title }}</a>
+                    <p class="job-description">{{ job.description }}</p>
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                    <p><strong>Posted by:</strong> {{ job.posted_by.username }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-jobs">No jobs available.</p>
+    {% endif %}
+</div>
+{% endblock %}

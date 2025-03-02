@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Delete Job: {{ job.title }}</h2>
+    <p>Are you sure you want to delete this job?</p>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        <button type="submit" class="auth-btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'organization_dashboard' %}" class="auth-btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

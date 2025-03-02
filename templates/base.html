@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Platform</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <!-- Project Title -->
+                <div class="project-title">
+                    <a href="{% url 'home' %}" class="title-link">
+                        Recruitment Platform
+                    </a>
+                </div>
+
+                <!-- Hamburger Menu -->
+                <div class="hamburger-menu" id="hamburgerMenu">☰</div>
+
+                <!-- Left Navigation Links -->
+                <div class="navbar-left">
+                    <a href="{% url 'home' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="{% url 'job_list' %}">
+                        <i class="fas fa-briefcase"></i> Jobs
+                    </a>
+                </div>
+
+                <!-- Right Navigation Links -->
+                <div class="navbar-right">
+                    {% if user.is_authenticated %}
+                        {% if user.profile.user_type == 'organization' %}
+                            <a href="{% url 'organization_dashboard' %}" class="btn btn-primary">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        {% elif user.profile.user_type == 'jobseeker' %}
+                            <a href="{% url 'dashboard' %}" class="btn btn-primary">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'dashboard' %}" class="applied">
+                            Applied Jobs
+                       </a>
+                        <a href="{% url 'logout' %}" class="btn btn-secondary">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                        
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="{% url 'register' %}" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="site-main">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <!-- About Section -->
+                <div class="col-md-4 mb-4">
+                    <h5>About Us</h5>
+                    <p class="">
+                        Welcome to the Recruitment Platform, where job seekers and organizations connect seamlessly.
+                        Our mission is to simplify the hiring process and empower professionals to find their dream jobs.
+                    </p>
+                    <p class="text-muted">
+                        <strong>Vision:</strong> To create a world where everyone has access to meaningful employment opportunities.
+                    </p>
+                    <p class="text-muted">
+                        <strong>Values:</strong> Transparency, Innovation, Collaboration, and Excellence.
+                    </p>
+                    <a href="{% url 'job_list' %}" class="btn btn-outline-light btn-sm">
+                        Explore Jobs <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+    
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li><a href="{% url 'home' %}" class="text-decoration-none text-light">Home</a></li>
+                        <li><a href="{% url 'job_list' %}" class="text-decoration-none text-light">Jobs</a></li>
+                        <li><a href="{% url 'login' %}" class="text-decoration-none text-light">Login</a></li>
+                        <li><a href="{% url 'register' %}" class="text-decoration-none text-light">Register</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Social Media -->
+                <div class="col-md-4 mb-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons d-flex flex-column align-items-start gap-3 mt-3 follow">
+                        <a href="https://facebook.com" target="_blank" class=" fb text-light fs-4">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="fb text-light fs-4">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="https://www.linkedin.com/in/penchala-prasanth-yendluru-991840317/" target="_blank" class="fb text-light fs-4">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://www.instagram.com/prashanth_yendluru/" target="_blank" class="fb text-light fs-4">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Copyright -->
+            <hr class="border border-light opacity-25">
+            <div class="text-center text-muted last">
+                &copy; 2025 Recruitment Platform. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const navbarRight = document.querySelector('.navbar-right');
+
+        hamburgerMenu.addEventListener('click', () => {
+            navbarRight.classList.toggle('active');
+        });
+    </script>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

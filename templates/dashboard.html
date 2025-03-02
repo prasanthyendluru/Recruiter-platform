@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2><u>Dashboard</u></h2>
+    <p class="dashp">Welcome, <strong  class="username12">{{ user.username }}!</strong></p>
+    <div class="my-applications">
+        <h3>My Applications</h3>
+        {% if my_applications %}
+        <ul class="application-list">
+            {% for application in my_applications %}
+                <li class="application-item">
+                    {{ application.job.title }} - Applied on {{ application.applied_at|date:"F j, Y" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not applied to any jobs yet.</p>
+    {% endif %}
+    </div>
+    
+</div>
+{% endblock %}
